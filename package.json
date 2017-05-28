@@ -1,0 +1,22 @@
+{
+  "name": "aws_s3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.58.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "multer": "^1.3.0"
+  },
+  "devDependencies": {
+    "multer": "^1.3.0",
+    "multer-s3": "^2.7.0"
+  }
+}
