@@ -54,13 +54,24 @@ app.post('/multiple', upload.array('image', 3), (req, res, next) => {
 
 // View all images 
 app.get('/album', (req, res, next) => {
-  s3.listObjects({Bucket: myBucket}, function(err, data) {
-    if (err) { console.log(err) }
-    // Retrieve all image filenames and create url array
-    const baseURL = `https://s3.amazonaws.com/${myBucket}/`;      
-    let urlArr = data.Contents.map(e => baseURL + e.Key);
-    res.render('album', { data: urlArr});
-  })
+  // // Traditional CAllBACK method
+  // s3.listObjects({Bucket: myBucket}, function(err, data) {
+  //   if (err) { console.log(err) }
+  //   // Retrieve all image filenames and create url array
+  //   const baseURL = `https://s3.amazonaws.com/${myBucket}/`;      
+  //   let urlArr = data.Contents.map(e => baseURL + e.Key);
+  //   res.render('album', { data: urlArr});
+  // })
+
+  // USING PROMISES, call on the promise method
+  s3.listObjects({Bucket: myBucket}).promise()
+    .then(data => {
+      const baseURL = `https://s3.amazonaws.com/${myBucket}/`;      
+      let urlArr = data.Contents.map(e => baseURL + e.Key);
+      res.render('album', { data: urlArr});
+    })
+    .catch(err => console.log(err));
+  
 });
 
 // Return file object
